@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Владимир Пузиков — Python Backend Developer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Владимир Пузиков</h1>
+            <p class="subtitle">Python Backend Developer | FastAPI · PostgreSQL · Docker</p>
+            <a href="https://t.me/Voldemar_Vladimir_IT" class="btn-primary">Написать в Telegram</a>
+        </section>
+
+        <!-- Навыки (карусель с автоплеем) -->
+        <section class="skills">
+            <h2>Технологии</h2>
+            <div class="skills-carousel-wrapper" id="skillsCarouselWrapper">
+                <button class="carousel-btn prev" onclick="scrollSkills(-1)">←</button>
+                <div class="skills-track" id="skillsTrack">
+                    % for skill in skills:
+                    <span class="skill-badge">${skill}</span>
+                    % endfor
+                </div>
+                <button class="carousel-btn next" onclick="scrollSkills(1)">→</button>
+            </div>
+        </section>
+
+        <!-- Резюме -->
+        <section class="about">
+            <h2>Обо мне</h2>
+            <p>Middle Python Backend Developer. За плечами коммерческий опыт в нефтегазовой сфере (ООО «ИТЦ Контур-Регион»), где проектировал высоконагруженные API на FastAPI (500+ RPS), оптимизировал SQL-запросы и настраивал CI/CD (GitLab CI + Docker). Сейчас активно работаю с современным стеком: Python, FastAPI, PostgreSQL, Redis, Docker, Resend API, Telegram Bot API, Supabase, Render.
+
+Из недавних проектов в портфолио:
+— Маркетплейс автозапчастей с админ-панелью, уведомлениями в Telegram/почту и облачной БД (FastAPI, PostgreSQL, Docker, Resend).
+— Лендинг для службы эвакуации с анимированной каруселью, формой обратной связи и адаптивным дизайном.
+
+Живу в Москве, ищу удалённые проекты на валютной основе или крупные заказы. Легко вхожу в новые команды и готов к ненормированному графику. Постоянно развиваюсь в backend-разработке и DevOps-практиках. Портфолио и исходный код доступны на GitHub </p>
+        </section>
+
+        <!-- Портфолио -->
+        <section class="portfolio">
+            <h2>Проекты</h2>
+            <div class="cards">
+                % for project in projects:
+                <div class="card">
+                    <img src="${project['image']}" alt="${project['name']}">
+                    <h3>${project['name']}</h3>
+                    <p>${project['description']}</p>
+                    <a href="${project['url']}" target="_blank">Смотреть сайт</a>
+                    <button class="btn-details" onclick="openProjectModal('${project['id']}')">Подробнее</button>
+                </div>
+                % endfor
+            </div>
+        </section>
+
+        <!-- Модальные окна проектов -->
+        % for project in projects:
+        <div class="modal" id="modal-${project['id']}">
+            <div class="modal-content">
+                <span class="close" onclick="closeProjectModal('${project['id']}')">&times;</span>
+                <h2>${project['name']}</h2>
+                <img src="${project['image']}" alt="${project['name']}" style="max-width:100%; border-radius:10px; margin-bottom:15px;">
+                <p>${project['description']}</p>
+                <p><strong>Детали:</strong> ${project.get('details', '')}</p>
+                <p><strong>Отзыв:</strong> ${project.get('review_text', '')}</p>
+                <p><strong>Оплата:</strong></p>
+                <img src="${project.get('payment_img', '')}" alt="Скриншот оплаты" style="max-width:100%; border-radius:10px;">
+                <a href="${project['url']}" target="_blank">Перейти на сайт</a>
+            </div>
+        </div>
+        % endfor
+
+        <!-- Контакты и площадки -->
+        <section class="platforms">
+            <h2>Мои площадки</h2>
+            <div class="links">
+                % for platform in platforms:
+                <a href="${platform['url']}" target="_blank">${platform['name']}</a>
+                % endfor
+            </div>
+        </section>
+
+        <!-- Форма обратной связи -->
+        <section class="contact-form">
+            <h2>Свяжитесь со мной</h2>
+            <form action="/contact" method="post">
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <input type="text" name="contact" placeholder="Телефон или @username" required>
+                <textarea name="message" rows="3" placeholder="Ваше сообщение (необязательно)"></textarea>
+                <button type="submit" class="btn-primary">Отправить</button>
+            </form>
+        </section>
+
+        <footer>
+            <p>© 2026 Владимир Пузиков. Все контакты рабочие.</p>
+        </footer>
+    </div>
+
+    <script>
+        // ---------- Карусель навыков с автоплеем ----------
+        const skillsTrack = document.getElementById('skillsTrack');
+        const skillsCarouselWrapper = document.getElementById('skillsCarouselWrapper');
+        const scrollAmount = 200; // на сколько пикселей скроллить за раз
+        let autoScrollInterval;
+
+        function scrollSkills(direction) {
+            skillsTrack.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+        }
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => scrollSkills(1), 1500); // 1,5 секунды
+        }
+
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
+
+        // Стартуем при загрузке
+        startAutoScroll();
+
+        // При наведении мыши останавливаем, при уходе — снова запускаем
+        skillsCarouselWrapper.addEventListener('mouseenter', stopAutoScroll);
+        skillsCarouselWrapper.addEventListener('mouseleave', startAutoScroll);
+
+        // ---------- Модальные окна проектов ----------
+        function openProjectModal(id) {
+            document.getElementById('modal-' + id).style.display = 'flex';
+        }
+        function closeProjectModal(id) {
+            document.getElementById('modal-' + id).style.display = 'none';
+        }
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

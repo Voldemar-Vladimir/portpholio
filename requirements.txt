@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+mako
+requests
+python-multipart
