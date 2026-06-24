@@ -15,6 +15,13 @@
             <a href="https://t.me/Voldemar_Vladimir_IT" class="btn-primary">Написать в Telegram</a>
         </section>
 
+        <!-- Сообщение об успешной отправке -->
+        % if success:
+        <div class="success-message">
+            ✅ Сообщение отправлено! Я скоро свяжусь с вами.
+        </div>
+        % endif
+
         <!-- Навыки (карусель с автоплеем) -->
         <section class="skills">
             <h2>Технологии</h2>
@@ -32,13 +39,7 @@
         <!-- Резюме -->
         <section class="about">
             <h2>Обо мне</h2>
-            <p>Middle Python Backend Developer. За плечами коммерческий опыт в нефтегазовой сфере (ООО «ИТЦ Контур-Регион»), где проектировал высоконагруженные API на FastAPI (500+ RPS), оптимизировал SQL-запросы и настраивал CI/CD (GitLab CI + Docker). Сейчас активно работаю с современным стеком: Python, FastAPI, PostgreSQL, Redis, Docker, Resend API, Telegram Bot API, Supabase, Render.
-
-Из недавних проектов в портфолио:
-— Маркетплейс автозапчастей с админ-панелью, уведомлениями в Telegram/почту и облачной БД (FastAPI, PostgreSQL, Docker, Resend).
-— Лендинг для службы эвакуации с анимированной каруселью, формой обратной связи и адаптивным дизайном.
-
-Живу в Москве, ищу удалённые проекты на валютной основе или крупные заказы. Легко вхожу в новые команды и готов к ненормированному графику. Постоянно развиваюсь в backend-разработке и DevOps-практиках. Портфолио и исходный код доступны на GitHub </p>
+            <p>Backend-разработчик с 4-летним коммерческим опытом. Специализируюсь на создании высоконагруженных API и микросервисов. Работал в нефтегазовой отрасли (ООО «ИТЦ Контур-Регион»), где отвечал за полный цикл разработки: от проектирования БД до деплоя и мониторинга. Сейчас ищу проекты на валютной основе или крупные заказы. Готов к удалённой работе с любыми часовыми поясами.</p>
         </section>
 
         <!-- Портфолио -->
@@ -101,10 +102,10 @@
     </div>
 
     <script>
-        // ---------- Карусель навыков с автоплеем ----------
+        // Карусель навыков с автоплеем
         const skillsTrack = document.getElementById('skillsTrack');
         const skillsCarouselWrapper = document.getElementById('skillsCarouselWrapper');
-        const scrollAmount = 200; // на сколько пикселей скроллить за раз
+        const scrollAmount = 200;
         let autoScrollInterval;
 
         function scrollSkills(direction) {
@@ -112,21 +113,18 @@
         }
 
         function startAutoScroll() {
-            autoScrollInterval = setInterval(() => scrollSkills(1), 1500); // 1,5 секунды
+            autoScrollInterval = setInterval(() => scrollSkills(1), 3000);
         }
 
         function stopAutoScroll() {
             clearInterval(autoScrollInterval);
         }
 
-        // Стартуем при загрузке
         startAutoScroll();
-
-        // При наведении мыши останавливаем, при уходе — снова запускаем
         skillsCarouselWrapper.addEventListener('mouseenter', stopAutoScroll);
         skillsCarouselWrapper.addEventListener('mouseleave', startAutoScroll);
 
-        // ---------- Модальные окна проектов ----------
+        // Модальные окна проектов
         function openProjectModal(id) {
             document.getElementById('modal-' + id).style.display = 'flex';
         }

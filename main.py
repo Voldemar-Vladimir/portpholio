@@ -18,7 +18,7 @@ def send_telegram(text: str):
         response = requests.post(
             url,
             json={"chat_id": TELEGRAM_CHAT_ID, "text": text},
-            timeout=15
+            timeout=10
         )
         print(f"Telegram API response: {response.status_code} - {response.text}")
     except Exception as e:
@@ -43,7 +43,7 @@ PROJECTS = [
         "image": "/static/images/evakuator.png",
         "details": "Адаптивный дизайн, Swiper-слайдер, анимированная кнопка. Настроен мониторинг UptimeRobot.",
         "review_text": "«Данный специалист до конца делает свою работу...»",
-        "payment_img": "/static/images/oplata2.jpg",  # исправил на .jpg, если у тебя файл jpg
+        "payment_img": "/static/images/oplata2.jpg",  # убедись, что файл лежит в static/images/
     },
 ]
 
@@ -64,7 +64,8 @@ PLATFORMS = [
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     template = templates.get_template("index.html")
-    return HTMLResponse(template.render(projects=PROJECTS, skills=SKILLS, platforms=PLATFORMS))
+    success = request.query_params.get("success")
+    return HTMLResponse(template.render(projects=PROJECTS, skills=SKILLS, platforms=PLATFORMS, success=success))
 
 @app.post("/contact")
 async def contact(name: str = Form(...), contact: str = Form(...), message: str = Form("")):

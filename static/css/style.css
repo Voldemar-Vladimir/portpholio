@@ -249,3 +249,12 @@ footer {
     font-size: 14px;
     margin-top: 40px;
 }
+.success-message {
+    background: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
