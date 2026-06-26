@@ -68,8 +68,14 @@
                 <p>${project['description']}</p>
                 <p><strong>Детали:</strong> ${project.get('details', '')}</p>
                 <p><strong>Отзыв:</strong> ${project.get('review_text', '')}</p>
+                % if project.get('payment_imgs'):
                 <p><strong>Оплата:</strong></p>
-                <img src="${project.get('payment_img', '')}" alt="Скриншот оплаты" style="max-width:100%; border-radius:10px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    % for img in project['payment_imgs']:
+                    <img src="${img}" alt="Скриншот оплаты" style="max-width:200px; border-radius:10px;">
+                    % endfor
+                </div>
+                % endif
                 <a href="${project['url']}" target="_blank">Перейти на сайт</a>
             </div>
         </div>

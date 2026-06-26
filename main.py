@@ -15,14 +15,9 @@ TELEGRAM_CHAT_ID = "5977647337"
 def send_telegram(text: str):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     try:
-        response = requests.post(
-            url,
-            json={"chat_id": TELEGRAM_CHAT_ID, "text": text},
-            timeout=10
-        )
-        print(f"Telegram API response: {response.status_code} - {response.text}")
-    except Exception as e:
-        print(f"Ошибка отправки в Telegram: {e}")
+        requests.post(url, json={"chat_id": TELEGRAM_CHAT_ID, "text": text}, timeout=10)
+    except:
+        pass
 
 PROJECTS = [
     {
@@ -33,17 +28,37 @@ PROJECTS = [
         "image": "/static/images/amurskauto.png",
         "details": "Полный цикл разработки: FastAPI, PostgreSQL, Docker. Интеграция с Resend и Telegram. Домен и SSL настроены.",
         "review_text": "«Продавец который правельно подходит к своему делу👍 даже если ты вообще ни чего не понимаешь и не знаешь, то тебе всё объяснял и раскажут👍 к каждому покупателю индивидуальный подход и большое терпение к покупателю, всё понятно и доступно!!! Советую всем👍Отзыв от  Amurskзапчасти, компания авторазбора машин, сделал для нас сайт простой, понятный и доступный👍👍👍 спасибо вам»",
-        "payment_img": "/static/images/oplata1.jpg",
+        "payment_imgs": ["/static/images/oplata1_1.jpg", "/static/images/oplata1_2.png"],  # два скриншота
     },
     {
         "id": "evakuator",
         "name": "Эвакуатор 24/7 Балашиха",
         "description": "Яркий лендинг с каруселью, анимациями и кнопкой звонка.",
-        "url": "https://evakuator-blh.onrender.com",
+        "url": "https://evakuator-blh.ru",
         "image": "/static/images/evakuator.png",
         "details": "Адаптивный дизайн, Swiper-слайдер, анимированная кнопка. Настроен мониторинг UptimeRobot.",
         "review_text": "«Данный специалист до конца делает свою работу...»",
-        "payment_img": "/static/images/oplata2.jpg",  # убедись, что файл лежит в static/images/
+        "payment_imgs": ["/static/images/oplata2_1.png"]#, "/static/images/oplata2_2.jpg"], два скриншота (можно позже добавить)
+    },
+    {
+        "id": "volfit",
+        "name": "VolFit — Фитнес-платформа",
+        "description": "Лендинг с калькулятором калорий, тарифами, формой связи и Telegram-уведомлениями.",
+        "url": "https://volfit.onrender.com",
+        "image": "/static/images/volfit1.png",
+        "details": "Современный дизайн в темных тонах с красными акцентами. Адаптация под мобильные устройства.",
+        "review_text": "«Была задача сделать одностраничник сайт для фитнеса зала, сказал все как надо и Владимир сделал за час первую версию и поправил по дизайну ещё на пол часа, сделал быстро и стильно, все работает быстро.»",
+        "payment_imgs": [],  # пока нет скриншотов
+    },
+    {
+        "id": "businessflat",
+        "name": "BusinessFlat — Аренда квартир",
+        "description": "Платформа для аренды квартир с каталогом, фильтрами и формой обратной связи.",
+        "url": "https://businessflat.onrender.com",
+        "image": "/static/images/BuisnesFlat.png",
+        "details": "Разработан на FastAPI, адаптивный дизайн. Интеграция с Telegram для уведомлений.",
+        "review_text": "«Понравился подход к работе. Сделал все быстро, сайт удобный.»",
+        "payment_imgs": [],  # пока нет скриншотов
     },
 ]
 
